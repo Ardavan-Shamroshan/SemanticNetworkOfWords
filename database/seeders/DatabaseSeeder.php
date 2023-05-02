@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Word;
 use Illuminate\Database\Seeder;
+use Ybazli\Faker\Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +26,10 @@ class DatabaseSeeder extends Seeder
             'email'     => 'kosar@gmail.com',
             'password'  => bcrypt('password'),
             'user_type' => 'user',
+        ]);
+
+        $this->call([
+            WordSeeder::class,
         ]);
     }
 }

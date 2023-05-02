@@ -20,7 +20,23 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'user:user'])->name('dashboard');
+
+Route::middleware(['auth', 'verified', 'user:admin'])->prefix('admin')->as('admin.')->group(function () {
+    // admin dashboard
+    Route::get('dashboard', static function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    // word
+    Route::resource('word', \App\Http\Controllers\Admin\DashboardController::class);
+});
+
+    Route::get('semantic-network', [\App\Http\Controllers\DashboardController::class, 'index'])->name('semantic-network.index');
+    Route::get('semantic-network/create', [\App\Http\Controllers\DashboardController::class, 'create'])->name('semantic-network.create');
+    Route::post('semantic-network/{word?}', [\App\Http\Controllers\DashboardController::class, 'store'])->name('semantic-network.store');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,4 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+
