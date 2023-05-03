@@ -35,7 +35,7 @@
                                         {{ $word->word ?? '-' }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $word->semantics()->count() }}
+                                        <a href="{{ route('admin.word.semantic.index', $word) }}">{{ $word->semantics()->count() }}</a>
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $word->semantics()->orderBy('semantic')->first()?->semantic ?? '-' }}

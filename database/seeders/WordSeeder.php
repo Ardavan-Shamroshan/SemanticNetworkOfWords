@@ -11,12 +11,19 @@ class WordSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
-        for ($i = 0; $i <= 20; $i++) {
-            Word::query()->create([
-                'word' => \Ybazli\Faker\Facades\Faker::word(),
-            ]);
-        }
+    public function run(): void {
+        Word::query()->insert([
+                ['word' => 'خورشید'],
+                ['word' => 'کتاب'],
+                ['word' => 'درخت'],
+                ['word' => 'صیاد'],
+                ['word' => 'مزرعه'],
+                ['word' => 'عشق'],
+                ['word' => 'فردوسی'],
+                ['word' => 'کلام'],
+                ['word' => 'زبان'],
+                ['word' => 'پزشک'],
+            ]
+        );
     }
 }

@@ -17,6 +17,11 @@ class DashboardController extends Controller
         return view('admin.word', compact('words'));
     }
 
+    public function semantics(Word $word) {
+        $semantics = $word->semantics;
+        return view('admin.semantics', compact('semantics', 'word'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
