@@ -74,7 +74,9 @@
                 <div class="p-6 text-gray-900">
                     {{ __("Welcome") }} {{ auth()->user()->name }}  {{ __("You're logged in!") }}
                     @admin
-                    <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Visit admin dashboard</a>
+                    <a href="{{ route('admin.dashboard') }}"
+                       class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Visit
+                        admin dashboard</a>
                     @endadmin
                 </div>
             </div>
@@ -93,13 +95,13 @@
                                 <div class="bg-white rounded-lg p-10 flex items-center shadow justify-between">
                                     <div>
                                         <svg class="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                         </svg>
 
                                         <h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">ثبت کلمات با موفقیت انجام شد</h2>
 
                                         <div class="text-gray-600 mb-8">
-                                           از شما ممنونیم که مارا انتخاب کردید
+                                            از شما ممنونیم که مارا انتخاب کردید
                                         </div>
 
                                         <button
@@ -143,7 +145,7 @@
                                                 @csrf
                                                 <div class="flex flex-wrap gap-4 mb-6">
                                                     @for($i = 0; $i <= 5; $i++)
-                                                        <input type="text" name="{{$word->word}}[]" id="semantic" class="block py-2.5 px-7 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600" />
+                                                        <input type="text" name="{{$word->word}}[]" id="semantic" class="block py-2.5 px-7 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600"/>
                                                     @endfor
                                                 </div>
                                             </div>
@@ -176,12 +178,12 @@
                                     >بعدی
                                     </button>
 
-                                    <button
-                                            @click="step = 'complete'"
-                                            x-show="step === 5"
-                                            class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"
-                                    >پایان
-                                    </button>
+{{--                                    <button--}}
+{{--                                            @click=""--}}
+{{--                                            x-show="step === 5"--}}
+{{--                                            class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"--}}
+{{--                                    >پایان--}}
+{{--                                    </button>--}}
                                 </div>
                             </div>
 
@@ -195,7 +197,7 @@
     <script>
         function app() {
             @if(Session::has('step') && Session::get('step') == 'complete')
-                    return {step: 'complete' }
+                return {step: 'complete'}
             @else
                 return {step: 1}
             @endif

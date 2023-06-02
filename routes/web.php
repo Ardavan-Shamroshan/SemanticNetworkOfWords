@@ -15,7 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        if (auth()->user()->user_type == 'admin')
+            return to_route('admin.dashboard');
+        elseif (auth()->user()->user_type == 'user')
+            return to_route('dashboard');
+        else
+            return view('welcome');
+    } else
+        return to_route('login');
 });
 
 Route::get('/dashboard', function () {
@@ -33,10 +41,9 @@ Route::middleware(['auth', 'verified', 'user:admin'])->prefix('admin')->as('admi
     Route::get('word/{word}/semantics', [\App\Http\Controllers\Admin\DashboardController::class, 'semantics'])->name('word.semantic.index');
 });
 
-    Route::get('semantic-network', [\App\Http\Controllers\DashboardController::class, 'index'])->name('semantic-network.index');
-    Route::get('semantic-network/create', [\App\Http\Controllers\DashboardController::class, 'create'])->name('semantic-network.create');
-    Route::post('semantic-network/{word?}', [\App\Http\Controllers\DashboardController::class, 'store'])->name('semantic-network.store');
-
+Route::get('semantic-network', [\App\Http\Controllers\DashboardController::class, 'index'])->name('semantic-network.index');
+Route::get('semantic-network/create', [\App\Http\Controllers\DashboardController::class, 'create'])->name('semantic-network.create');
+Route::post('semantic-network/{word?}', [\App\Http\Controllers\DashboardController::class, 'store'])->name('semantic-network.store');
 
 
 Route::middleware('auth')->group(function () {

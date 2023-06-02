@@ -30,6 +30,19 @@
                             <tbody>
 
                             @forelse($words as $word)
+                                @php
+                                    $semantics = $word->semantics;
+
+                                    $duplicates = [];
+                                    foreach ($semantics as $semantic) {
+                                        $duplicates[] = $semantic->semantic;
+                                    }
+                                    $duplicates = array_count_values($duplicates);
+                                    if(!empty($duplicates))
+                                        $max = max($duplicates);
+                                        $key = array_search($max, $duplicates);
+                                @endphp
+
                                 <tr class="bg-white border-b ">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                         {{ $word->word ?? '-' }}
@@ -38,10 +51,12 @@
                                         <a href="{{ route('admin.word.semantic.index', $word) }}">{{ $word->semantics()->count() }}</a>
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $word->semantics()->orderBy('semantic')->first()?->semantic ?? '-' }}
+                                        {{ $key ? $key : '-' }}
                                     </td>
                                     <td class="px-6 py-4 flex flex-row gap-4">
-                                        <a href="" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">ویرایش</a>
+                                        <a href="{{ route('admin.word.semantic.index', $word) }}"
+                                           class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">تناسب
+                                            ها</a>
                                         <form action="{{ route('admin.word.destroy', $word) }}" method="post">
                                             @csrf @method('delete')
                                             <x-danger-button>پاک کردن</x-danger-button>
@@ -65,9 +80,9 @@
                             @csrf
                             <!-- Email Address -->
                             <div>
-                                <x-input-label for="word" :value="__('کلمه')" />
-                                <x-text-input id="word" class="block mt-1 w-full" type="text" name="word" :value="old('word')" required autofocus />
-                                <x-input-error :messages="$errors->get('word')" class="mt-2" />
+                                <x-input-label for="word" :value="__('کلمه')"/>
+                                <x-text-input id="word" class="block mt-1 w-full" type="text" name="word" :value="old('word')" required autofocus/>
+                                <x-input-error :messages="$errors->get('word')" class="mt-2"/>
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
