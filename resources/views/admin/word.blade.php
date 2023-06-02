@@ -38,6 +38,7 @@
                                         $duplicates[] = $semantic->semantic;
                                     }
                                     $duplicates = array_count_values($duplicates);
+                                    $max = 0;
                                     if(!empty($duplicates))
                                         $max = max($duplicates);
                                         $key = array_search($max, $duplicates);
