@@ -19,6 +19,9 @@
                     <x-nav-link :href="route('admin.word.index')" :active="request()->routeIs('admin.word.index')">
                         {{ __('Words') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.register-admin-user.index')" :active="request()->routeIs('admin.register-admin-user.index')">
+                        {{ __('Register Admin User') }}
+                    </x-nav-link>
                     @else
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
@@ -26,8 +29,7 @@
                         <x-nav-link :href="route('semantic-network.index')" :active="request()->routeIs('semantic-network.index')">
                             {{ __('Start') }}
                         </x-nav-link>
-                        @endadmin
-
+                    @endadmin
                 </div>
             </div>
 
