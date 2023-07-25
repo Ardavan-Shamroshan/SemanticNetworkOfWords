@@ -40,7 +40,9 @@ Route::middleware(['auth', 'verified', 'user:admin'])->prefix('admin')->as('admi
     Route::resource('word', \App\Http\Controllers\Admin\DashboardController::class);
     Route::get('word/{word}/semantics', [\App\Http\Controllers\Admin\DashboardController::class, 'semantics'])->name('word.semantic.index');
 
-    Route::resource('register-admin-user', \App\Http\Controllers\Admin\RegisterAdminUserController::class)->parameters(['register-admin-user' => 'admin']);
+    Route::resource('register-admin-user', \App\Http\Controllers\Admin\RegisterAdminUserController::class)
+        ->parameters(['register-admin-user' => 'admin'])
+        ->only(['index', 'store', 'destroy']);
 });
 
 Route::get('semantic-network', [\App\Http\Controllers\DashboardController::class, 'index'])->name('semantic-network.index');

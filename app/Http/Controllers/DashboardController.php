@@ -6,30 +6,23 @@ use App\Models\SemanticNetworkWord;
 use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use function PHPUnit\TestFixture\func;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() {
+    public function index()
+    {
         $words = Word::query()->inRandomOrder()->limit(5)->get();
         return view('home.semantic-network', compact('words'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create() {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $inputs = $request->except('_token');
 
         try {
@@ -40,6 +33,7 @@ class DashboardController extends Controller
                     foreach ($value as $item) {
                         $semantic = SemanticNetworkWord::query()->create(['semantic' => $item]);
                         $word?->semantics()->attach($semantic->id);
+                        $semantic?->users()->attach(auth()->id(), ['word_id' => $word->id]);
                     }
                 });
             }
@@ -48,33 +42,5 @@ class DashboardController extends Controller
         }
 
         return back()->with('step', 'complete');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id) {
-        //
     }
 }

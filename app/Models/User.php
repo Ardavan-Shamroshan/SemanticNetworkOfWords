@@ -44,6 +44,10 @@ class User extends Authenticatable
 
     public function semantics()
     {
-        return $this->belongsToMany(SemanticNetworkWord::class)->withPivot('word');
+        return $this->belongsToMany(SemanticNetworkWord::class)->withPivot('word_id');
+    }
+
+    public function words () {
+        return $this->belongsToMany(Word::class)->withPivot('semantic_id');
     }
 }
