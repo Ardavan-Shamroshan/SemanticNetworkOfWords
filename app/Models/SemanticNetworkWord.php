@@ -16,4 +16,9 @@ class SemanticNetworkWord extends Model
     public function Words(): \Illuminate\Database\Eloquent\Relations\BelongsToMany {
         return $this->belongsToMany(Word::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('word_id');
+    }
 }
