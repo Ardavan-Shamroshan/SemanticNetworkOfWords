@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout xmlns="http://www.w3.org/1999/html">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Word') }}
@@ -10,6 +10,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="relative overflow-x-auto">
+                        <div class="flex items-center justify-end mb-4">
+                            <x-nav-link href="{{ route('admin.export') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                                </svg>
+                                    {{ __('بارگیری') }}
+                            </x-nav-link>
+                        </div>
                         <table class="w-full text-sm text-gray-500 text-right">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
@@ -103,7 +111,12 @@
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
+
                                 <x-secondary-button type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m0-3l-3-3m0 0l-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75" />
+                                    </svg>
+
                                     {{ __('بارگزاری') }}
                                 </x-secondary-button>
                             </div>

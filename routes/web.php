@@ -1,7 +1,9 @@
 <?php
 
+use App\Exports\ExportWord;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,11 @@ Route::middleware(['auth', 'verified', 'user:admin'])->prefix('admin')->as('admi
     Route::resource('word', \App\Http\Controllers\Admin\DashboardController::class);
     Route::post('word/store-file', [\App\Http\Controllers\Admin\DashboardController::class, 'storeFile'])->name('word.store-file');
     Route::get('word/{word}/semantics', [\App\Http\Controllers\Admin\DashboardController::class, 'semantics'])->name('word.semantic.index');
+
+    Route::get('export', function () {
+        return Excel::download(new ExportWord, 'words.xlsx');
+        // return to_route('admin.word.index');
+    })->name('export');
 
     Route::resource('register-admin-user', \App\Http\Controllers\Admin\RegisterAdminUserController::class)
         ->parameters(['register-admin-user' => 'admin'])
