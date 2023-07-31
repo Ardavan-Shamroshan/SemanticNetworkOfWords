@@ -8,10 +8,10 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 class ExportWord implements FromCollection
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        return Word::all();
+        return Word::select('word')->get();
     }
 }
