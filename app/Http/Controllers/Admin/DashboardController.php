@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\ImportWord;
 use App\Models\Word;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -30,8 +31,7 @@ class DashboardController extends Controller
         $duplicates = array_count_values($duplicates);
 
 
-
-        return view('admin.semantics', compact('semantics', 'duplicates','word'));
+        return view('admin.semantics', compact('semantics', 'duplicates', 'word'));
     }
 
     /**
@@ -93,7 +93,9 @@ class DashboardController extends Controller
      */
     public function storeFile(Request $request): \Illuminate\Http\RedirectResponse
     {
-        dd('excel here...');
+
+        Excel::import(new ImportWord(),
+            $request->file('file')->store('files'));
 
         return to_route('admin.word.index');
     }
