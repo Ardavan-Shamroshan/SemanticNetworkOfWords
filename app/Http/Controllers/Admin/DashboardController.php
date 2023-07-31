@@ -87,4 +87,14 @@ class DashboardController extends Controller
         $word->forceDelete();
         return to_route('admin.word.index');
     }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function storeFile(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        dd('excel here...');
+
+        return to_route('admin.word.index');
+    }
 }

@@ -92,6 +92,23 @@
                                 </x-primary-button>
                             </div>
                         </form>
+
+
+                        <form method="POST" action="{{ route('admin.word.store-file') }}">
+                            @csrf
+                            <div>
+                                <label class="text-sm font-medium text-gray-900 block mb-2" for="user_avatar">{{ __('بارگزاری فایل excel') }}</label>
+                                <input class="block w-full cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-transparent text-sm rounded-lg" aria-describedby="user_avatar_help" id="user_avatar" type="file" required>
+                                <div class="mt-1 text-sm text-gray-500" id="user_avatar_help">میتوانید کلمات خود را از طریق یک فایل اکسل بصورت یکجا بارگزاری کنید</div>
+                            </div>
+
+                            <div class="flex items-center justify-end mt-4">
+                                <x-secondary-button type="submit">
+                                    {{ __('بارگزاری') }}
+                                </x-secondary-button>
+                            </div>
+                        </form>
+
                     </div>
 
                 </div>
