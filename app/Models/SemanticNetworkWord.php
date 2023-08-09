@@ -12,7 +12,6 @@ class SemanticNetworkWord extends Model
 
     protected $guarded = ['id'];
 
-
     public function Words(): \Illuminate\Database\Eloquent\Relations\BelongsToMany {
         return $this->belongsToMany(Word::class);
     }

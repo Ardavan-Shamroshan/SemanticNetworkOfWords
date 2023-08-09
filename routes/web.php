@@ -29,7 +29,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $histories = auth()->user()->semantics->groupBy('words.*.id');
+
+    return view('dashboard', compact('histories'));
 })->middleware(['auth', 'verified', 'user:user'])->name('dashboard');
 
 Route::middleware(['auth', 'verified', 'user:admin'])->prefix('admin')->as('admin.')->group(function () {
