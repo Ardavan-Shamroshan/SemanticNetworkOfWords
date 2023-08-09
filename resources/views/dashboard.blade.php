@@ -23,22 +23,33 @@
         </div>
     </div>
 
-    {{-- history --}}
-    @forelse($histories as $key => $value)
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-1">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 text-center">
-                    <h1 class="font-bold">{{ \App\Models\Word::findOrFail($key)->word }}</h1>
+    <div class="py-8 text-center">
+        <h1 class="font-bold">تاریخچه</h1>
 
-                    <div class="pt-6">
-                    @forelse($value as $semantic)
-                       <span class="px-3 bg-gray-100 rounded">{{ $semantic->semantic }}</span>
-                    @empty
-                    @endforelse
+        {{-- history --}}
+        @forelse($histories as $key => $value)
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-1">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 text-center">
+                        <h1 class="font-bold">{{ \App\Models\Word::findOrFail($key)->word }}</h1>
+
+                        <div class="pt-6">
+                            @forelse($value as $semantic)
+                                <span class="px-3 bg-gray-100 rounded">{{ $semantic->semantic }}</span>
+                            @empty
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @empty
-    @endforelse
+        @empty
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-1">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-400 text-center">
+                        <h1 class="font-bold">تاریخچه خالی است</h1>
+                    </div>
+                </div>
+            </div>
+        @endforelse
+    </div>
 </x-app-layout>

@@ -30,7 +30,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $histories = auth()->user()->semantics->groupBy('words.*.id');
-
     return view('dashboard', compact('histories'));
 })->middleware(['auth', 'verified', 'user:user'])->name('dashboard');
 
