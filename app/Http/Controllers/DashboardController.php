@@ -14,7 +14,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $words = Word::query()->inRandomOrder()->limit(5)->get();
+        $mostVisitedWord = Word::query()->orderBy('showed', 'desc')->first();
+        $lessVisitedWord = Word::query()->orderBy('showed')->first();
+        $words = Word::query()->orderBy('showed', 'desc')->inRandomOrder()->get();
+
+        foreach ($words as $key => $value) {
+            if ($value->showed == $mostVisitedWord->showed || $value->showed > $lessVisitedWord->showed)
+                $words->forget($key);
+        }
+
+        if ($words->isEmpty())
+            $words = Word::query()->inRandomOrder()->limit(5)->get();
+        else $words->take(5);
+
+
         return view('home.semantic-network', compact('words'));
     }
 

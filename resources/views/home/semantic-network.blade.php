@@ -104,11 +104,11 @@
                                             از شما ممنونیم که مارا انتخاب کردید
                                         </div>
 
-                                        <button
-                                                @click="step = 1"
+                                        <a
+                                                href="{{ route('semantic-network.index') }}"
                                                 class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
                                         >شروع دوباره
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -150,6 +150,30 @@
                                                 </div>
                                             </div>
                                         @endforeach
+
+
+                                        <div class="flex justify-between">
+                                            <div class="w-1/2">
+                                                <button
+                                                        type="button"
+                                                        x-show="step > 1"
+                                                        @click="step--"
+                                                        class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+                                                >قبل
+                                                </button>
+                                            </div>
+
+                                            <div class="w-1/2 text-right">
+                                                <button
+                                                        type="button"
+                                                        x-show="step < 5"
+                                                        @click="step++"
+                                                        class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"
+                                                >بعدی
+                                                </button>
+                                            </div>
+                                        </div>
+
                                         <x-primary-button>
                                             {{ __('ذخیره') }}
                                         </x-primary-button>
@@ -159,32 +183,6 @@
                                     @endforeach
                                 </div>
                                 <!-- / Step Content -->
-                            </div>
-                            <div class="flex justify-between">
-                                <div class="w-1/2">
-                                    <button
-                                            x-show="step > 1"
-                                            @click="step--"
-                                            class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
-                                    >قبل
-                                    </button>
-                                </div>
-
-                                <div class="w-1/2 text-right">
-                                    <button
-                                            x-show="step < 5"
-                                            @click="step++"
-                                            class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"
-                                    >بعدی
-                                    </button>
-
-{{--                                    <button--}}
-{{--                                            @click=""--}}
-{{--                                            x-show="step === 5"--}}
-{{--                                            class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"--}}
-{{--                                    >پایان--}}
-{{--                                    </button>--}}
-                                </div>
                             </div>
 
                         </div>
