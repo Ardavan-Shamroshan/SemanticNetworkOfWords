@@ -4,29 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\SemanticNetworkWord;
 use App\Models\Word;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    public Collection $showedBefor;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $mostVisitedWord = Word::query()->orderBy('showed', 'desc')->first();
-        $lessVisitedWord = Word::query()->orderBy('showed')->first();
-        $words = Word::query()->orderBy('showed', 'desc')->inRandomOrder()->get();
+        $mostShowed = Word::max('showed');
+        $lessShowed = Word::min('showed');
+        $words = Word::query()
+            ->where('showed', '<', $mostShowed)
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
 
-        foreach ($words as $key => $value) {
-            if ($value->showed == $mostVisitedWord->showed || $value->showed > $lessVisitedWord->showed)
-                $words->forget($key);
-        }
-
-        if ($words->isEmpty())
+        if ($words->isEmpty()) {
             $words = Word::query()->inRandomOrder()->limit(5)->get();
-        else $words->take(5);
+        } else $words->take(5);
 
+        $words->each(function ($word) {
+            $word->showed++;
+            $word->save();
+        });
 
         return view('home.semantic-network', compact('words'));
     }

@@ -121,7 +121,8 @@
                                         <div class="flex-1">
                                             @forelse($words as $word)
                                                 <div x-show="step === {{ $loop->iteration }}">
-                                                    <div class="text-3xl font-bold text-gray-700 leading-tight">{{ $word->word }}</div>
+                                                    <div class="text-3xl font-bold text-gray-700 leading-tight">{{ $word->word }} </div>
+                                                    <small>دفعات نمایش [{{ $word->showed }}]</small>
                                                 </div>
                                             @empty
                                             @endforelse
