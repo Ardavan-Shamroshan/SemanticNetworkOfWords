@@ -20,17 +20,19 @@ class DashboardController extends Controller
         $mostShowed = Word::max('showed');
         $lessShowed = Word::min('showed');
         $words = Word::query()
-            ->where('showed', '<', $mostShowed)
+            // ->where('showed', '<', $mostShowed)
+            ->where('showed', 0)
             ->inRandomOrder()
-            ->limit(5)
+            ->take(5)
             ->get();
 
-        if ($words->isEmpty()) {
-            $words = Word::query()->inRandomOrder()->limit(5)->get();
-        } else $words->take(5);
+        // if ($words->isEmpty()) {
+        //     $words = Word::query()->inRandomOrder()->limit(5)->get();
+        // } else $words->take(5);
+
 
         $words->each(function ($word) {
-            $word->showed++;
+            $word->showed = 1;
             $word->save();
         });
 
