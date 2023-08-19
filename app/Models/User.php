@@ -49,6 +49,6 @@ class User extends Authenticatable
     }
 
     public function words () {
-        return $this->belongsToMany(Word::class)->withPivot('semantic_id');
+        return $this->belongsToMany(Word::class);
     }
 }

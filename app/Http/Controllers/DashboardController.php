@@ -4,37 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\SemanticNetworkWord;
 use App\Models\Word;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public Collection $showedBefor;
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $mostShowed = Word::max('showed');
-        $lessShowed = Word::min('showed');
+        $id = auth()->id();
         $words = Word::query()
             // ->where('showed', '<', $mostShowed)
-            ->where('showed', 0)
+            ->whereDoesntHave('users', function ($query) use ($id) {
+                $query->where('user_id', $id);
+            })
             ->inRandomOrder()
             ->take(5)
             ->get();
-
-        // if ($words->isEmpty()) {
-        //     $words = Word::query()->inRandomOrder()->limit(5)->get();
-        // } else $words->take(5);
-
-
-        $words->each(function ($word) {
-            $word->showed = 1;
-            $word->save();
-        });
 
         return view('home.semantic-network', compact('words'));
     }
@@ -57,6 +46,7 @@ class DashboardController extends Controller
                         $semantic?->users()->attach(auth()->id(), ['word_id' => $word->id]);
                     }
                 });
+                auth()->user()->words()->attach($word->id);
             }
         } catch (\Exception $e) {
             return $e->getMessage();

@@ -12,7 +12,13 @@ class Word extends Model
 
     protected $guarded = ['id'];
 
-    public function semantics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany {
+    public function semantics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
         return $this->belongsToMany(SemanticNetworkWord::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

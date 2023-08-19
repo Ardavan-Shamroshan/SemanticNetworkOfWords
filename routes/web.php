@@ -33,6 +33,11 @@ Route::get('/dashboard', function () {
     return view('dashboard', compact('histories'));
 })->middleware(['auth', 'verified', 'user:user'])->name('dashboard');
 
+Route::get('detach-all', function () {
+    auth()->user()->words()->detach();
+    return to_route('dashboard');
+})->name('detach-all');
+
 Route::middleware(['auth', 'verified', 'user:admin'])->prefix('admin')->as('admin.')->group(function () {
     // admin dashboard
     Route::get('dashboard', static function () {
